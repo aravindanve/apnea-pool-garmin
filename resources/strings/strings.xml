@@ -1,0 +1,9 @@
+<strings>
+    <string id="AppName">Apnea Pool</string>
+
+    <string id="label_timer">TIMER</string>
+    <string id="label_pressure">PRESSURE</string>
+
+    <string id="menu_label_1">Item 1</string>
+    <string id="menu_label_2">Item 2</string>
+</strings>
