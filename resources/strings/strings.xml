@@ -4,6 +4,11 @@
     <string id="label_timer">TIMER</string>
     <string id="label_pressure">PRESSURE</string>
 
-    <string id="menu_label_1">Item 1</string>
-    <string id="menu_label_2">Item 2</string>
+    <string id="placeholder_timer">00:00</string>
+    <string id="placeholder_pressure">000000</string>
+    <string id="placeholder_temperature">°C</string>
+
+    <string id="menu_label_resume">Resume</string>
+    <string id="menu_label_save">Save</string>
+    <string id="menu_label_discard">Discard</string>
 </strings>

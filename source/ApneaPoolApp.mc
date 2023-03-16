@@ -4,8 +4,13 @@ import Toybox.WatchUi;
 
 class ApneaPoolApp extends Application.AppBase {
 
+    var model;
+    var controller;
+
     function initialize() {
         AppBase.initialize();
+        model = new $.ApneaPoolModel();
+        controller = new $.ApneaPoolController();
     }
 
     // onStart() is called on application start up
