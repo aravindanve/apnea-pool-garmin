@@ -121,9 +121,17 @@ class ApneaPoolModel
             mAbsolutePressure = sensorInfo.pressure;
             mAbsolutePressureField.setData(mAbsolutePressure);
         }
-        if (sensorInfo has :temperature && sensorInfo.temperature != null) {
-            mTemperature = sensorInfo.temperature;
-            mTemperatureField.setData(mTemperature);
+
+        if ((Toybox has :SensorHistory) && (Toybox.SensorHistory has :getTemperatureHistory)) {
+            var sensorIter = SensorHistory.getTemperatureHistory({:period=>1,:order=>SensorHistory.ORDER_NEWEST_FIRST});
+            if (sensorIter != null) {
+                var sensorSample = sensorIter.next();
+                if (sensorSample != null && sensorSample.data != null) {
+                    var data = sensorSample.data;
+                    mTemperature = data;
+                    mTemperatureField.setData(data);
+                }
+            }
         }
 
         var systemStats = System.getSystemStats();
