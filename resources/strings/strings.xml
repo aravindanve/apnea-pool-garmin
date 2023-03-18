@@ -3,9 +3,11 @@
 
     <string id="TimerLabel">TIMER</string>
     <string id="PressureLabel">PRESSURE</string>
+    <string id="DepthLabel">DEPTH</string>
 
     <string id="TimerPlaceholder">00:00</string>
     <string id="PressurePlaceholder">000000</string>
+    <string id="DepthPlaceholder">0.0</string>
     <string id="TemperaturePlaceholder">°C</string>
 
     <string id="ResumeMenuItemLabel">Resume</string>

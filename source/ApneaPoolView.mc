@@ -71,10 +71,15 @@ class ApneaPoolView extends WatchUi.View {
             mFieldOneLeftValue.setText(timerLeftValueString);
             mFieldOneRightValue.setText(timerRightValueString);
 
-            // Update pressure
-            var pressure = mController.getAbsolutePressure();
-            var pressureValueString = pressure.format("%d");
-            mFieldTwoValue.setText(pressureValueString);
+            // // Update pressure
+            // var pressure = mController.getAbsolutePressure();
+            // var pressureValueString = pressure.format("%d");
+            // mFieldTwoValue.setText(pressureValueString);
+
+            // Update depth
+            var depth = mController.getDepth();
+            var depthValueString = depth.format("%.1f");
+            mFieldTwoValue.setText(depthValueString);
 
             // Update temperature
             var temperature = mController.getTemperature();

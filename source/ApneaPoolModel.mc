@@ -5,6 +5,14 @@ using Toybox.Attention;
 using Toybox.FitContributor;
 using Toybox.ActivityRecording;
 
+// assume water density at 25 °C for freshwater
+// https://en.wikipedia.org/wiki/Properties_of_water
+const WATER_DENSITY = 997.0474; // kg/m^3
+
+// assume gravity defined by the standard
+// https://en.wikipedia.org/wiki/Standard_gravity
+const GRAVITY = 9.8066; // m/s^2
+
 class ApneaPoolModel
 {
     hidden var mTimer;
@@ -13,6 +21,7 @@ class ApneaPoolModel
     hidden var mElapsedTime;
     hidden var mAltitude;
     hidden var mAbsolutePressure;
+    hidden var mAbsolutePressureMin;
     hidden var mDepth;
     hidden var mTemperature;
     hidden var mBatteryPercentage;
@@ -29,19 +38,20 @@ class ApneaPoolModel
         // Create fields to record
         mAbsolutePressureField = mSession.createField("absolute_pressure", 0, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD,:units => "Pa"});
         mDepthField = mSession.createField("depth", 1, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD,:units => "m"});
-        mTemperatureField = mSession.createField("temperature", 2, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD,:units => "C"});
+        mTemperatureField = mSession.createField("temperature_2", 2, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD,:units => "C"});
 
         // Initialize data
         mElapsedTime = 0;
         mAltitude = 0;
-        mAbsolutePressure = 0;
+        mAbsolutePressure = 100000;
+        mAbsolutePressureMin = 100000;
         mDepth = 0;
         mTemperature = -1;
         mBatteryPercentage = -1;
         mBatteryInDays = -1;
 
-        // Capture activity and sensor data
-        captureSensorData();
+        // Capture record fields
+        captureRecordFields();
     }
 
     // Begin sensor processing
@@ -102,8 +112,8 @@ class ApneaPoolModel
         return mBatteryInDays;
     }
 
-    // Capture activity and sensor data
-    function captureSensorData() {
+    // Capture record fields
+    function captureRecordFields() {
         var activityInfo = Activity.getActivityInfo();
         if (activityInfo has :elapsedTime) {
             mElapsedTime = activityInfo.elapsedTime;
@@ -111,14 +121,11 @@ class ApneaPoolModel
         if (activityInfo has :altitude && activityInfo.altitude != null) {
             mAltitude = activityInfo.altitude;
         }
-        // if (activityInfo has :ambientPressure && activityInfo.ambientPressure != null) {
-        //     mAbsolutePressure = activityInfo.ambientPressure;
-        //     mAbsolutePressureField.setData(mAbsolutePressure);
-        // }
-
-        var sensorInfo = Sensor.getInfo();
-        if (sensorInfo has :pressure && sensorInfo.pressure != null) {
-            mAbsolutePressure = sensorInfo.pressure;
+        // NOTE: only `activityInfo.rawAmbientPressure` seems to accurately reflect changes in pressure
+        // `activityInfo.ambientPressure` increases when immersed in water, then stays elevated after being removed
+        // `sensorInfo.pressure` decreases when immersed in water, possibly because it thinks the altitude is reducing
+        if (activityInfo has :ambientPressure && activityInfo.rawAmbientPressure != null) {
+            mAbsolutePressure = activityInfo.rawAmbientPressure;
             mAbsolutePressureField.setData(mAbsolutePressure);
         }
 
@@ -142,12 +149,27 @@ class ApneaPoolModel
             mBatteryInDays = systemStats.batteryInDays;
         }
 
+        // capture absolute pressure min to calculate depth
+        if (mAbsolutePressure < mAbsolutePressureMin) {
+            mAbsolutePressureMin = mAbsolutePressure;
+        }
+
         // System.println("Absolute Pressure: " + mAbsolutePressure);
+    }
+
+    // Calculate depth using record fields
+    function calculateDepth() {
+        // h = P/pg where P is pressure, p (rho) is density, g is gravity, h is depth
+        // https://en.wikipedia.org/wiki/Pressure#Liquid_pressure
+        var pressure = mAbsolutePressure - mAbsolutePressureMin;
+        mDepth = pressure / (WATER_DENSITY * GRAVITY);
+        mDepthField.setData(mDepth);
     }
 
     // Handle timer callback
     function timerCallback() as Void {
-        captureSensorData();
+        captureRecordFields();
+        calculateDepth();
     }
 
 }
