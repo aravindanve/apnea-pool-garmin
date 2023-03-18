@@ -24,12 +24,12 @@
         x="center" y="43%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
         font="Graphics.FONT_TINY"
-        text="@Strings.PressureLabel" />
+        text="@Strings.DepthLabel" />
     <label id="FieldTwoValue"
         x="center" y="54%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
         font="Graphics.FONT_NUMBER_HOT"
-        text="@Strings.PressurePlaceholder" />
+        text="@Strings.DepthPlaceholder" />
     <label id="FieldThreeValue"
         x="center" y="84%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
