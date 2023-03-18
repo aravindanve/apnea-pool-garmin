@@ -72,7 +72,7 @@ class ApneaPoolView extends WatchUi.View {
             mFieldOneRightValue.setText(timerRightValueString);
 
             // Update pressure
-            var pressure = mController.getAmbientPressure();
+            var pressure = mController.getAbsolutePressure();
             var pressureValueString = pressure.format("%d");
             mFieldTwoValue.setText(pressureValueString);
 
@@ -82,13 +82,29 @@ class ApneaPoolView extends WatchUi.View {
             mFieldThreeValue.setText(temperatureValueString);
         }
 
-        // Update battery percentage
-        var batteryPercentage = mController.getTemperature();
-        var batteryPercentageValueString = Lang.format("$1$%", [batteryPercentage.format("%d")]);
-        mFieldBattValue.setText(batteryPercentageValueString);
+        // Update battery value
+        var batteryInHours = mController.getBatteryInDays() * 24;
+        var batteryValueString = Lang.format("$1$h", [batteryInHours.format("%d")]);
+        mFieldBattValue.setText(batteryValueString);
 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
+
+        // Update battery icon
+        var batteryPercentage = mController.getBatteryPercentage();
+        var batteryIcon;
+        if (batteryPercentage < 20) {
+            batteryIcon = new Rez.Drawables.BattIcon10();
+        } else if (batteryPercentage < 40) {
+            batteryIcon = new Rez.Drawables.BattIcon25();
+        } else if (batteryPercentage < 60) {
+            batteryIcon = new Rez.Drawables.BattIcon50();
+        } else if (batteryPercentage < 90) {
+            batteryIcon = new Rez.Drawables.BattIcon75();
+        } else {
+            batteryIcon = new Rez.Drawables.BattIcon100();
+        }
+        batteryIcon.draw(dc);
     }
 
     // Called when this View is removed from the screen. Save the

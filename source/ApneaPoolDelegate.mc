@@ -10,9 +10,15 @@ class ApneaPoolDelegate extends WatchUi.BehaviorDelegate {
         mController = Application.getApp().controller;
     }
 
-    // Input handling of start/stop is mapped to onSelect
+    // handle start stop button
     function onSelect() {
         mController.onStartStop();
+        return true;
+    }
+
+    // Handle back button
+    function onBack() {
+        mController.onBack();
         return true;
     }
 

@@ -16,24 +16,24 @@ class ApneaPoolMenuDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item) {
         var itemId = item.getId().toString();
 
-        System.println("On menu select: " + itemId);
+        // System.println("On menu select: " + itemId);
 
-        if (itemId.equals("save")) {
+        if (itemId.equals("Save")) {
             mController.save();
-            System.println("Activity saved!");
-        } else if (itemId.equals("discard")) {
+            // System.println("Activity saved!");
+        } else if (itemId.equals("Discard")) {
             mController.discard();
-            System.println("Activity discarded!");
+            // System.println("Activity discarded!");
         } else {
             mController.start();
-            System.println("Activity resumed!");
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            // System.println("Activity resumed!");
         }
     }
 
     // Handle menu back
     function onBack() {
-        System.println("On menu back");
+        // System.println("On menu back");
         mController.start();
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
     }

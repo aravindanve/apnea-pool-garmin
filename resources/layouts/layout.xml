@@ -1,8 +1,7 @@
 <layout id="MainLayout">
     <drawable id="MainLayoutGrid" />
-    <bitmap id="BattIcon" x="77%" y="6%" filename="../drawables/batt_75.png" />
     <label id="FieldBattValue"
-        x="83%" y="16%" color="Graphics.COLOR_BLACK"
+        x="82%" y="16%" color="Graphics.COLOR_BLACK"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
         font="Graphics.FONT_TINY"
         text="" />
@@ -10,7 +9,7 @@
         x="25%" y="3%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_LEFT"
         font="Graphics.FONT_TINY"
-        text="@Strings.label_timer" />
+        text="@Strings.TimerLabel" />
     <label id="FieldOneLeftValue"
         x="18%" y="16%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_RIGHT"
@@ -20,20 +19,20 @@
         x="58%" y="14%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_RIGHT"
         font="Graphics.FONT_NUMBER_MEDIUM"
-        text="@Strings.placeholder_timer" />
+        text="@Strings.TimerPlaceholder" />
     <label id="FieldTwoLabel"
         x="center" y="43%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
         font="Graphics.FONT_TINY"
-        text="@Strings.label_pressure" />
+        text="@Strings.PressureLabel" />
     <label id="FieldTwoValue"
         x="center" y="54%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
         font="Graphics.FONT_NUMBER_HOT"
-        text="@Strings.placeholder_pressure" />
+        text="@Strings.PressurePlaceholder" />
     <label id="FieldThreeValue"
         x="center" y="84%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
         font="Graphics.FONT_TINY"
-        text="@Strings.placeholder_temperature" />
+        text="@Strings.TemperaturePlaceholder" />
 </layout>
