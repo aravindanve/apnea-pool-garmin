@@ -1,5 +1,5 @@
 <menu2 id="MainMenu" title="@Strings.AppName">
-    <menu-item id="resume" label="@Strings.menu_label_resume" />
-    <menu-item id="save" label="@Strings.menu_label_save" />
-    <menu-item id="discard" label="@Strings.menu_label_discard" />
+    <menu-item id="Resume" label="@Strings.ResumeMenuItemLabel" />
+    <menu-item id="Save" label="@Strings.SaveMenuItemLabel" />
+    <menu-item id="Discard" label="@Strings.DiscardMenuItemLabel" />
 </menu2>

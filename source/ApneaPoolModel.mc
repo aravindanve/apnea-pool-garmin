@@ -12,48 +12,36 @@ class ApneaPoolModel
 
     hidden var mElapsedTime;
     hidden var mAltitude;
-    hidden var mAmbientPressure;
-    hidden var mAmbientPressureRaw;
+    hidden var mAbsolutePressure;
+    hidden var mDepth;
     hidden var mTemperature;
-    hidden var mSensorAltitude;
-    hidden var mSensorPressure;
     hidden var mBatteryPercentage;
     hidden var mBatteryInDays;
 
-    hidden var mAltitudeField;
-    hidden var mAmbientPressureField;
-    hidden var mAmbientPressureRawField;
+    hidden var mAbsolutePressureField;
+    hidden var mDepthField;
     hidden var mTemperatureField;
-    hidden var mSensorAltitudeField;
-    hidden var mSensorPressureField;
-    hidden var mBatteryPercentageField;
-    hidden var mBatteryInDaysField;
 
     function initialize() {
         // Create session
-        mSession = ActivityRecording.createSession({:name=>"Apnea Pool"});
+        mSession = ActivityRecording.createSession({:name=>"Apnea Pool",:sport=>Activity.SPORT_GENERIC,:subSport=>Activity.SUB_SPORT_GENERIC});
 
         // Create fields to record
-        mAltitudeField = mSession.createField("Altitude", 1, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-        mAmbientPressureField = mSession.createField("Ambient Pressure", 2, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-        mAmbientPressureRawField = mSession.createField("Ambient Pressure Raw", 3, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-        mTemperatureField = mSession.createField("Temperature", 4, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-        mSensorAltitudeField = mSession.createField("Sensor Altitude", 5, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-        mSensorPressureField = mSession.createField("Sensor Pressure", 6, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-        mBatteryPercentageField = mSession.createField("Battery Percentage", 7, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-        mBatteryInDaysField = mSession.createField("Battery In Days", 8, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
+        mAbsolutePressureField = mSession.createField("absolute_pressure", 0, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD,:units => "Pa"});
+        mDepthField = mSession.createField("depth", 1, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD,:units => "m"});
+        mTemperatureField = mSession.createField("temperature", 2, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD,:units => "C"});
 
-        // Initialize data to display
+        // Initialize data
         mElapsedTime = 0;
-        mAmbientPressure = 0;
-        mTemperature = 0;
+        mAltitude = 0;
+        mAbsolutePressure = 0;
+        mDepth = 0;
+        mTemperature = -1;
+        mBatteryPercentage = -1;
+        mBatteryInDays = -1;
 
-        var systemStats = System.getSystemStats();
-        if (systemStats has :battery && systemStats.battery != null) {
-            mBatteryPercentage = systemStats.battery;
-        } else {
-            mBatteryPercentage = -1;
-        }
+        // Capture activity and sensor data
+        captureSensorData();
     }
 
     // Begin sensor processing
@@ -90,8 +78,13 @@ class ApneaPoolModel
     }
 
     // Return the ambient pressure
-    function getAmbientPressure() {
-        return mAmbientPressure;
+    function getAbsolutePressure() {
+        return mAbsolutePressure;
+    }
+
+    // Return the depth
+    function getDepth() {
+        return mDepth;
     }
 
     // Return the temperature
@@ -104,70 +97,49 @@ class ApneaPoolModel
         return mBatteryPercentage;
     }
 
-    // Process activity and sensor data
-    function timerCallback() as Void {
-        var activityInfo = Activity.getActivityInfo();
-        var sensorInfo = Sensor.getInfo();
-        var systemStats = System.getSystemStats();
+    // Return the battery in days
+    function getBatteryInDays() {
+        return mBatteryInDays;
+    }
 
-        // Capture activity and sendor data
+    // Capture activity and sensor data
+    function captureSensorData() {
+        var activityInfo = Activity.getActivityInfo();
         if (activityInfo has :elapsedTime) {
             mElapsedTime = activityInfo.elapsedTime;
-        } else {
-            mElapsedTime = 0;
         }
         if (activityInfo has :altitude && activityInfo.altitude != null) {
             mAltitude = activityInfo.altitude;
-        } else {
-            mAltitude = -1;
         }
-        if (activityInfo has :ambientPressure && activityInfo.ambientPressure != null) {
-            mAmbientPressure = activityInfo.ambientPressure;
-        } else {
-            mAmbientPressure = -1;
-        }
-        if (activityInfo has :rawAmbientPressure && activityInfo.rawAmbientPressure != null) {
-            mAmbientPressureRaw = activityInfo.rawAmbientPressure;
-        } else {
-            mAmbientPressureRaw = -1;
+        // if (activityInfo has :ambientPressure && activityInfo.ambientPressure != null) {
+        //     mAbsolutePressure = activityInfo.ambientPressure;
+        //     mAbsolutePressureField.setData(mAbsolutePressure);
+        // }
+
+        var sensorInfo = Sensor.getInfo();
+        if (sensorInfo has :pressure && sensorInfo.pressure != null) {
+            mAbsolutePressure = sensorInfo.pressure;
+            mAbsolutePressureField.setData(mAbsolutePressure);
         }
         if (sensorInfo has :temperature && sensorInfo.temperature != null) {
             mTemperature = sensorInfo.temperature;
-        } else {
-            mTemperature = -1;
+            mTemperatureField.setData(mTemperature);
         }
-        if (sensorInfo has :altitude && sensorInfo.altitude != null) {
-            mSensorAltitude = sensorInfo.altitude;
-        } else {
-            mSensorAltitude = -1;
-        }
-        if (sensorInfo has :pressure && sensorInfo.pressure != null) {
-            mSensorPressure = sensorInfo.pressure;
-        } else {
-            mSensorPressure = -1;
-        }
+
+        var systemStats = System.getSystemStats();
         if (systemStats has :battery && systemStats.battery != null) {
             mBatteryPercentage = systemStats.battery;
-        } else {
-            mBatteryPercentage = -1;
         }
         if (systemStats has :batteryInDays && systemStats.batteryInDays != null) {
             mBatteryInDays = systemStats.batteryInDays;
-        } else {
-            mBatteryInDays = -1;
         }
 
-        // System.println("Ambient Pressure: " + mAmbientPressure);
+        // System.println("Absolute Pressure: " + mAbsolutePressure);
+    }
 
-        // Update fields
-        mAltitudeField.setData(mAltitude);
-        mAmbientPressureField.setData(mAmbientPressure);
-        mAmbientPressureRawField.setData(mAmbientPressureRaw);
-        mTemperatureField.setData(mTemperature);
-        mSensorAltitudeField.setData(mSensorAltitude);
-        mSensorPressureField.setData(mSensorPressure);
-        mBatteryPercentageField.setData(mBatteryPercentage);
-        mBatteryInDaysField.setData(mBatteryInDays);
+    // Handle timer callback
+    function timerCallback() as Void {
+        captureSensorData();
     }
 
 }

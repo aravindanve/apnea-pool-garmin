@@ -1,14 +1,24 @@
 <strings>
     <string id="AppName">Apnea Pool</string>
 
-    <string id="label_timer">TIMER</string>
-    <string id="label_pressure">PRESSURE</string>
+    <string id="TimerLabel">TIMER</string>
+    <string id="PressureLabel">PRESSURE</string>
 
-    <string id="placeholder_timer">00:00</string>
-    <string id="placeholder_pressure">000000</string>
-    <string id="placeholder_temperature">°C</string>
+    <string id="TimerPlaceholder">00:00</string>
+    <string id="PressurePlaceholder">000000</string>
+    <string id="TemperaturePlaceholder">°C</string>
 
-    <string id="menu_label_resume">Resume</string>
-    <string id="menu_label_save">Save</string>
-    <string id="menu_label_discard">Discard</string>
+    <string id="ResumeMenuItemLabel">Resume</string>
+    <string id="SaveMenuItemLabel">Save</string>
+    <string id="DiscardMenuItemLabel">Discard</string>
+
+    <string id="AbsolutePressureFitChartTitle">Absolute Pressure</string>
+    <string id="AbsolutePressureFitDataLabel">Absolute Pressure</string>
+    <string id="AbsolutePressureFitUnitLabel">Pa</string>
+    <string id="DepthFitChartTitle">Depth</string>
+    <string id="DepthFitDataLabel">Depth</string>
+    <string id="DepthFitUnitLabel">m</string>
+    <string id="TemperatureFitChartTitle">Temperature</string>
+    <string id="TemperatureFitDataLabel">Temperature</string>
+    <string id="TemperatureFitUnitLabel">C</string>
 </strings>

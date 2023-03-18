@@ -55,8 +55,12 @@ class ApneaPoolController
         return mModel.getElapsedTime();
     }
 
-    function getAmbientPressure() {
-        return mModel.getAmbientPressure();
+    function getAbsolutePressure() {
+        return mModel.getAbsolutePressure();
+    }
+
+    function getDepth() {
+        return mModel.getDepth();
     }
 
     function getTemperature() {
@@ -67,12 +71,25 @@ class ApneaPoolController
         return mModel.getBatteryPercentage();
     }
 
+    function getBatteryInDays() {
+        return mModel.getBatteryInDays();
+    }
+
     function onStartStop() {
         if (mRunning) {
             stop();
             WatchUi.pushView(new Rez.Menus.MainMenu(), new ApneaPoolMenuDelegate(), WatchUi.SLIDE_LEFT);
         } else {
             start();
+        }
+    }
+
+    function onBack() {
+        if (mRunning) {
+            stop();
+            WatchUi.pushView(new Rez.Menus.MainMenu(), new ApneaPoolMenuDelegate(), WatchUi.SLIDE_LEFT);
+        } else {
+            System.exit();
         }
     }
 
