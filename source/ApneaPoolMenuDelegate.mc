@@ -14,14 +14,14 @@ class ApneaPoolMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     // Handle menu select
     function onSelect(item) {
-        var itemId = item.getId().toString();
+        var itemId = item.getId();
 
-        // System.println("On menu select: " + itemId);
+        // System.println("On menu select: " + item.getLabel());
 
-        if (itemId.equals("Save")) {
+        if (itemId.equals(:Save)) {
             mController.save();
             // System.println("Activity saved!");
-        } else if (itemId.equals("Discard")) {
+        } else if (itemId.equals(:Discard)) {
             mController.discard();
             // System.println("Activity discarded!");
         } else {
