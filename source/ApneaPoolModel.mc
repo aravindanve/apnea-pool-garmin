@@ -162,7 +162,9 @@ class ApneaPoolModel
         // h = P/pg where P is pressure, p (rho) is density, g is gravity, h is depth
         // https://en.wikipedia.org/wiki/Pressure#Liquid_pressure
         var pressure = mAbsolutePressure - mAbsolutePressureMin;
-        mDepth = pressure / (WATER_DENSITY * GRAVITY);
+        var depth = pressure / (WATER_DENSITY * GRAVITY);
+
+        mDepth = depth.format("%.3f").toFloat();
         mDepthField.setData(mDepth);
     }
 
