@@ -1,6 +1,7 @@
 # output
 bin
-build
+/build
+/exports
 
 # macOS
 .DS_Store
