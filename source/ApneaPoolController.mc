@@ -1,8 +1,6 @@
 using Toybox.Timer;
 using Toybox.Application;
 using Toybox.WatchUi;
-
-using Toybox.WatchUi;
 using Toybox.System;
 
 class ApneaPoolController
@@ -32,7 +30,7 @@ class ApneaPoolController
 
         // Give the system some time to finish the recording. Push up a progress bar
         // and start a timer to allow all processing to finish
-        WatchUi.pushView(new WatchUi.ProgressBar("Saving...", null), new ApneaPoolProgressDelegate(), WatchUi.SLIDE_DOWN);
+        WatchUi.pushView(new WatchUi.ProgressBar("Saving...", null), new ProgressDelegate(), WatchUi.SLIDE_DOWN);
         mTimer = new Timer.Timer();
         mTimer.start(method(:onExit), 3000, false);
     }
@@ -42,7 +40,7 @@ class ApneaPoolController
 
         // Give the system some time to discard the recording. Push up a progress bar
         // and start a timer to allow all processing to finish
-        WatchUi.pushView(new WatchUi.ProgressBar("Discarding...", null), new ApneaPoolProgressDelegate(), WatchUi.SLIDE_DOWN);
+        WatchUi.pushView(new WatchUi.ProgressBar("Discarding...", null), new ProgressDelegate(), WatchUi.SLIDE_DOWN);
         mTimer = new Timer.Timer();
         mTimer.start(method(:onExit), 3000, false);
     }
@@ -75,10 +73,26 @@ class ApneaPoolController
         return mModel.getBatteryInDays();
     }
 
+    function getLapTime() {
+        return mModel.getLapTime();
+    }
+
+    function getLapType() {
+        return mModel.getLapType();
+    }
+
+    function getLapMaxDepth() {
+        return mModel.getLapMaxDepth();
+    }
+
+    function getSessionDiveCount() {
+        return mModel.getSessionDiveCount();
+    }
+
     function onStartStop() {
         if (mRunning) {
             stop();
-            WatchUi.pushView(new Rez.Menus.MainMenu(), new ApneaPoolMenuDelegate(), WatchUi.SLIDE_LEFT);
+            WatchUi.pushView(new Rez.Menus.MainMenu(), new MainMenuDelegate(), WatchUi.SLIDE_LEFT);
         } else {
             start();
         }
@@ -87,7 +101,7 @@ class ApneaPoolController
     function onBack() {
         if (mRunning) {
             stop();
-            WatchUi.pushView(new Rez.Menus.MainMenu(), new ApneaPoolMenuDelegate(), WatchUi.SLIDE_LEFT);
+            WatchUi.pushView(new Rez.Menus.MainMenu(), new MainMenuDelegate(), WatchUi.SLIDE_LEFT);
         } else {
             System.exit();
         }

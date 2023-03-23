@@ -1,23 +1,31 @@
 <drawables>
-    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
-    <drawable-list id="MainLayoutGrid" background="Gfx.COLOR_TRANSPARENT">
+    <bitmap id="LauncherIcon" filename="../bitmaps/launcher_icon.png" />
+    <drawable-list id="DiveLayoutGrid" background="Gfx.COLOR_TRANSPARENT">
       <shape type="circle" x="82%" y="17%" radius="22%" color="0xFFFFFF"/>
       <shape type="rectangle" x="0" y="40%" width="82%" height="1%" color="Gfx.COLOR_WHITE" />
       <shape type="rectangle" x="0" y="82%" width="100%" height="1%" color="Gfx.COLOR_WHITE" />
     </drawable-list>
+    <drawable-list id="SessionLayoutGrid" background="Gfx.COLOR_TRANSPARENT">
+      <shape type="circle" x="82%" y="17%" radius="22%" color="0xFFFFFF"/>
+      <shape type="rectangle" x="0" y="40%" width="82%" height="1%" color="Gfx.COLOR_WHITE" />
+      <shape type="rectangle" x="0" y="82%" width="100%" height="1%" color="Gfx.COLOR_WHITE" />
+    </drawable-list>
+    <drawable-list id="TempIcon">
+      <bitmap id="TempIconBitmap" x="76%" y="4%" filename="../bitmaps/temp_icon.png" />
+    </drawable-list>
     <drawable-list id="BattIcon10">
-      <bitmap id="BattIcon10Bitmap" x="76%" y="6%" filename="./batt_10.png" />
+      <bitmap id="BattIcon10Bitmap" x="76%" y="6%" filename="../bitmaps/batt_10.png" />
     </drawable-list>
     <drawable-list id="BattIcon25">
-      <bitmap id="BattIcon25Bitmap" x="76%" y="6%" filename="./batt_25.png" />
+      <bitmap id="BattIcon25Bitmap" x="76%" y="6%" filename="../bitmaps/batt_25.png" />
     </drawable-list>
     <drawable-list id="BattIcon50">
-      <bitmap id="BattIcon50Bitmap" x="76%" y="6%" filename="./batt_50.png" />
+      <bitmap id="BattIcon50Bitmap" x="76%" y="6%" filename="../bitmaps/batt_50.png" />
     </drawable-list>
     <drawable-list id="BattIcon75">
-      <bitmap id="BattIcon75Bitmap" x="76%" y="6%" filename="./batt_75.png" />
+      <bitmap id="BattIcon75Bitmap" x="76%" y="6%" filename="../bitmaps/batt_75.png" />
     </drawable-list>
     <drawable-list id="BattIcon100">
-      <bitmap id="BattIcon100Bitmap" x="76%" y="6%" filename="./batt_100.png" />
+      <bitmap id="BattIcon100Bitmap" x="76%" y="6%" filename="../bitmaps/batt_100.png" />
     </drawable-list>
 </drawables>

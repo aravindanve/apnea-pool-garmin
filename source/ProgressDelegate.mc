@@ -1,6 +1,6 @@
 using Toybox.WatchUi;
 
-class ApneaPoolProgressDelegate extends WatchUi.BehaviorDelegate {
+class ProgressDelegate extends WatchUi.BehaviorDelegate {
 
     function initialize() {
         BehaviorDelegate.initialize();

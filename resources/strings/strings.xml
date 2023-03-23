@@ -1,18 +1,20 @@
 <strings>
     <string id="AppName">Apnea Pool</string>
 
-    <string id="TimerLabel">TIMER</string>
-    <string id="PressureLabel">PRESSURE</string>
-    <string id="DepthLabel">DEPTH</string>
+    <string id="TimerTitle">TIMER</string>
+    <string id="RestTimeTitle">REST T.</string>
+    <string id="DiveTimeTitle">DIVE T.</string>
+    <string id="DepthTitle">DEPTH</string>
+    <string id="TimeOfDayTitle">TIME OF DAY</string>
 
     <string id="TimerPlaceholder">00:00</string>
-    <string id="PressurePlaceholder">000000</string>
-    <string id="DepthPlaceholder">0.0</string>
-    <string id="TemperaturePlaceholder">°C</string>
+    <string id="DepthPlaceholder">-.-</string>
+    <string id="TimeOfDayPlaceholder">--:--</string>
+    <string id="DiveCountPlaceholder">0</string>
 
-    <string id="ResumeMenuItemLabel">Resume</string>
-    <string id="SaveMenuItemLabel">Save</string>
-    <string id="DiscardMenuItemLabel">Discard</string>
+    <string id="ResumeMenuItemText">Resume</string>
+    <string id="SaveMenuItemText">Save</string>
+    <string id="DiscardMenuItemText">Discard</string>
 
     <string id="AbsolutePressureFitChartTitle">Absolute Pressure</string>
     <string id="AbsolutePressureFitDataLabel">Absolute Pressure</string>
@@ -23,4 +25,10 @@
     <string id="TemperatureFitChartTitle">Temperature</string>
     <string id="TemperatureFitDataLabel">Temperature</string>
     <string id="TemperatureFitUnitLabel">C</string>
+    <string id="LapTypeFitDataLabel">Type</string>
+    <string id="LapTypeFitUnitLabel"> </string>
+    <string id="LapMaxDepthFitDataLabel">Max Depth</string>
+    <string id="LapMaxDepthFitUnitLabel">m</string>
+    <string id="SessionDiveCountFitDataLabel">Dive Count</string>
+    <string id="SessionDiveCountFitUnitLabel"> </string>
 </strings>

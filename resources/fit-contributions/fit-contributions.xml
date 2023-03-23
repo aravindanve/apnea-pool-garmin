@@ -1,6 +1,9 @@
 <!-- https://developer.garmin.com/connect-iq/core-topics/activity-recording/ -->
 <fitContributions>
-    <fitField id="0" displayInChart="true" sortOrder="0" precision="2" chartTitle="@Strings.AbsolutePressureFitChartTitle" dataLabel="@Strings.AbsolutePressureFitDataLabel" unitLabel="@Strings.AbsolutePressureFitUnitLabel" fillColor="#0000FF" />
-    <fitField id="1" displayInChart="true" sortOrder="1" precision="3" chartTitle="@Strings.DepthFitChartTitle" dataLabel="@Strings.DepthFitDataLabel" unitLabel="@Strings.DepthFitUnitLabel" fillColor="#0000FF" />
-    <fitField id="2" displayInChart="true" sortOrder="2" precision="2" chartTitle="@Strings.TemperatureFitChartTitle" dataLabel="@Strings.TemperatureFitDataLabel" unitLabel="@Strings.TemperatureFitUnitLabel" fillColor="#0000FF" />
+    <fitField id="0" displayInChart="true" sortOrder="4" precision="0" chartTitle="@Strings.AbsolutePressureFitChartTitle" dataLabel="@Strings.AbsolutePressureFitDataLabel" unitLabel="@Strings.AbsolutePressureFitUnitLabel" fillColor="#757575" />
+    <fitField id="1" displayInChart="true" sortOrder="3" precision="1" chartTitle="@Strings.DepthFitChartTitle" dataLabel="@Strings.DepthFitDataLabel" unitLabel="@Strings.DepthFitUnitLabel" fillColor="#02a4fc" />
+    <fitField id="2" displayInChart="true" sortOrder="5" precision="1" chartTitle="@Strings.TemperatureFitChartTitle" dataLabel="@Strings.TemperatureFitDataLabel" unitLabel="@Strings.TemperatureFitUnitLabel" fillColor="#69e04e" />
+    <fitField id="3" displayInActivityLaps="true" sortOrder="1" dataLabel="@Strings.LapTypeFitDataLabel" unitLabel="@Strings.LapTypeFitUnitLabel" />
+    <fitField id="4" displayInActivityLaps="true" sortOrder="2" precision="1" dataLabel="@Strings.LapMaxDepthFitDataLabel" unitLabel="@Strings.LapMaxDepthFitUnitLabel" />
+    <fitField id="5" displayInActivitySummary="true" sortOrder="0" precision="0" dataLabel="@Strings.SessionDiveCountFitDataLabel" unitLabel="@Strings.SessionDiveCountFitUnitLabel" />
 </fitContributions>
