@@ -1,0 +1,5 @@
+<menu2 id="MainMenu" title="@Strings.AppName">
+    <menu-item id="Resume" label="@Strings.ResumeMenuItemText" />
+    <menu-item id="Save" label="@Strings.SaveMenuItemText" />
+    <menu-item id="Discard" label="@Strings.DiscardMenuItemText" />
+</menu2>

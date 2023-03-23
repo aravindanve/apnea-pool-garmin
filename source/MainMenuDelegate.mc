@@ -2,7 +2,7 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
 
-class ApneaPoolMenuDelegate extends WatchUi.Menu2InputDelegate {
+class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     hidden var mController;
 

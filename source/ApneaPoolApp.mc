@@ -23,7 +23,7 @@ class ApneaPoolApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as Array<Views or InputDelegates>? {
-        return [ new ApneaPoolView(), new ApneaPoolDelegate() ] as Array<Views or InputDelegates>;
+        return [ new DiveView(), new DiveDelegate() ] as Array<Views or InputDelegates>;
     }
 
 }
