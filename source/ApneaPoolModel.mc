@@ -199,21 +199,33 @@ class ApneaPoolModel
         mDepth = depth.format("%.3f").toFloat();
         mDepthField.setData(mDepth);
 
-        // Start dive or rest
-        if (mLapType == LAP_TYPE_REST && depth > DIVE_START_DEPTH) {
-            mSession.addLap();
-            mLapStartTime = mElapsedTime;
-            mLapType = LAP_TYPE_DIVE;
-        } else if (mLapType == LAP_TYPE_DIVE && depth < REST_START_DEPTH) {
-            var time = getLapTime();
-            mSession.addLap();
-            mLapStartTime = mElapsedTime;
-            mLapType = LAP_TYPE_REST;
-
-            // Count dive only if exceeds min time
-            if (time >= DIVE_MIN_TIME) {
-                mSessionDiveCount++;
+        // Handle lap
+        if (mLapType == LAP_TYPE_REST) {
+            // Start dive if depth threshold crossed
+            if (depth > DIVE_START_DEPTH) {
+                mSession.addLap();
+                mLapStartTime = mElapsedTime;
+                mLapType = LAP_TYPE_DIVE;
+                mLapMaxDepth = 0;
             }
+        } else if (mLapType == LAP_TYPE_DIVE) {
+            // Start rest if depth threshold crossed
+            if (depth < REST_START_DEPTH) {
+                var time = getLapTime();
+                mSession.addLap();
+                mLapStartTime = mElapsedTime;
+                mLapType = LAP_TYPE_REST;
+                mLapMaxDepth = 0;
+
+                // Count dive only if exceeds min time
+                if (time >= DIVE_MIN_TIME) {
+                    mSessionDiveCount++;
+                }
+            } else if (depth > mLapMaxDepth) {
+                // Keep track of max depth
+                mLapMaxDepth = depth;
+            }
+        } else {
         }
 
         // Set lap fields
