@@ -31,8 +31,8 @@
         font="Graphics.FONT_NUMBER_HOT"
         text="@Strings.TimeOfDayPlaceholder" />
     <label id="DiveCountValueLabel"
-        x="center" y="84%" color="Graphics.COLOR_WHITE"
+        x="center" y="82%" color="Graphics.COLOR_WHITE"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
-        font="Graphics.FONT_TINY"
+        font="Graphics.FONT_MEDIUM"
         text="@Strings.DiveCountPlaceholder" />
 </layout>
