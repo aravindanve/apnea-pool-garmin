@@ -5,11 +5,15 @@
     <string id="RestTimeTitle">REST T.</string>
     <string id="DiveTimeTitle">DIVE T.</string>
     <string id="DepthTitle">DEPTH</string>
+    <string id="LastDiveTimeTitle">L. TIME</string>
+    <string id="LastDiveDepthTitle">L. DEPTH</string>
     <string id="TimeOfDayTitle">TIME OF DAY</string>
 
     <string id="TimerPlaceholder">00:00</string>
     <string id="DepthPlaceholder">-.-</string>
-    <string id="TimeOfDayPlaceholder">--:--</string>
+    <string id="LastDiveTimePlaceholder">-:--</string>
+    <string id="LastDiveDepthPlaceholder">-.-</string>
+    <string id="TimeOfDayPlaceholder">-:--</string>
     <string id="DiveCountPlaceholder">0</string>
 
     <string id="ResumeMenuItemText">Resume</string>

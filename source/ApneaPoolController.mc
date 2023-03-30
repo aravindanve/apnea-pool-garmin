@@ -12,6 +12,7 @@ class ApneaPoolController
     function initialize() {
         mTimer = null;
         mModel = Application.getApp().model;
+        mModel.setOnLapCallback(method(:onLap));
         mRunning = false;
     }
 
@@ -85,6 +86,14 @@ class ApneaPoolController
         return mModel.getLapMaxDepth();
     }
 
+    function getLastDiveTime() {
+        return mModel.getLastDiveTime();
+    }
+
+    function getLastDiveDepth() {
+        return mModel.getLastDiveDepth();
+    }
+
     function getSessionDiveCount() {
         return mModel.getSessionDiveCount();
     }
@@ -99,11 +108,31 @@ class ApneaPoolController
     }
 
     function onBack() {
+        // // NOTE: uncomment for testing laps
+        // if (true) {
+        //     if (mModel.getTestDepth() == 1.1) {
+        //         mModel.setTestDepth(0.1);
+        //         return;
+        //     } else {
+        //         mModel.setTestDepth(1.1);
+        //         return;
+        //     }
+        // }
+
         if (mRunning) {
             stop();
             WatchUi.pushView(new Rez.Menus.MainMenu(), new MainMenuDelegate(), WatchUi.SLIDE_LEFT);
         } else {
             System.exit();
+        }
+    }
+
+    function onLap(lapType) {
+        // System.println("onLap called with: " + lapType);
+        if (lapType == LAP_TYPE_DIVE) {
+            WatchUi.switchToView(new DiveView(), new DiveDelegate(), WatchUi.SLIDE_IMMEDIATE);
+        } else {
+            WatchUi.switchToView(new RestView(), new RestDelegate(), WatchUi.SLIDE_IMMEDIATE);
         }
     }
 
