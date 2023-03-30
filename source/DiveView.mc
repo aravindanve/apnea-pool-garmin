@@ -1,5 +1,4 @@
 class DiveView extends BaseView {
-    hidden var mTimerTitleLabel;
     hidden var mTimerLeftValueLabel;
     hidden var mTimerRightValueLabel;
     hidden var mDepthValueLabel;
@@ -15,7 +14,6 @@ class DiveView extends BaseView {
         setLayout(Rez.Layouts.DiveLayout(dc));
 
         mTempValueLabel = View.findDrawableById("TempValueLabel");
-        mTimerTitleLabel = View.findDrawableById("TimerTitleLabel");
         mTimerLeftValueLabel = View.findDrawableById("TimerLeftValueLabel");
         mTimerRightValueLabel = View.findDrawableById("TimerRightValueLabel");
         mDepthValueLabel = View.findDrawableById("DepthValueLabel");
@@ -26,16 +24,6 @@ class DiveView extends BaseView {
     function onUpdate(dc) {
         // Update fields if running
         if (mController.isRunning()) {
-            // Update timer title
-            var lapType = mController.getLapType();
-            var timerTitleString;
-            if (lapType == LAP_TYPE_REST) {
-                timerTitleString = Rez.Strings.RestTimeTitle;
-            } else {
-                timerTitleString = Rez.Strings.DiveTimeTitle;
-            }
-            mTimerTitleLabel.setText(timerTitleString);
-
             // Update timer value
             var time = mController.getLapTime() / 1000;
 

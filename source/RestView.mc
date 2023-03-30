@@ -1,5 +1,4 @@
 class RestView extends BaseView {
-    hidden var mTimerTitleLabel;
     hidden var mTimerLeftValueLabel;
     hidden var mTimerRightValueLabel;
     hidden var mLastDiveTimeValueLabel;
@@ -16,7 +15,6 @@ class RestView extends BaseView {
         setLayout(Rez.Layouts.RestLayout(dc));
 
         mTempValueLabel = View.findDrawableById("TempValueLabel");
-        mTimerTitleLabel = View.findDrawableById("TimerTitleLabel");
         mTimerLeftValueLabel = View.findDrawableById("TimerLeftValueLabel");
         mTimerRightValueLabel = View.findDrawableById("TimerRightValueLabel");
         mLastDiveTimeValueLabel = View.findDrawableById("LastDiveTimeValueLabel");
@@ -30,16 +28,6 @@ class RestView extends BaseView {
 
         // Update fields if running
         if (mController.isRunning()) {
-            // Update timer title
-            var lapType = mController.getLapType();
-            var timerTitleString;
-            if (lapType == LAP_TYPE_REST) {
-                timerTitleString = Rez.Strings.RestTimeTitle;
-            } else {
-                timerTitleString = Rez.Strings.DiveTimeTitle;
-            }
-            mTimerTitleLabel.setText(timerTitleString);
-
             // Update timer value
             var time = mController.getLapTime() / 1000;
 
