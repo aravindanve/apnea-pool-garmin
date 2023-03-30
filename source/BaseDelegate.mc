@@ -49,10 +49,16 @@ class BaseDelegate extends WatchUi.BehaviorDelegate {
     function switchToPage(page, transition) {
         // System.println("switchToPage called with " + page);
 
+        // Disable scroll during dive
+        if (mController.getLapType() == LAP_TYPE_DIVE) {
+            return;
+        }
+
+        // Scroll to page
         var pageIndex = (page % 2).abs();
         switch (pageIndex) {
         case 0:
-            WatchUi.switchToView(new DiveView(), new DiveDelegate(), transition);
+            WatchUi.switchToView(new RestView(), new RestDelegate(), transition);
             break;
         case 1:
             WatchUi.switchToView(new SessionView(), new SessionDelegate(), transition);

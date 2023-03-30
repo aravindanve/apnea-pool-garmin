@@ -1,0 +1,49 @@
+<layout id="RestLayout">
+    <drawable id="RestLayoutGrid" />
+    <drawable id="TempIcon" />
+    <label id="TempValueLabel"
+        x="82%" y="14%" color="Graphics.COLOR_BLACK"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+        font="Graphics.FONT_MEDIUM"
+        text="" />
+    <label id="TimerTitleLabel"
+        x="25%" y="3%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_LEFT"
+        font="Graphics.FONT_TINY"
+        text="@Strings.RestTimeTitle" />
+    <label id="TimerLeftValueLabel"
+        x="18%" y="16%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_RIGHT"
+        font="Graphics.FONT_MEDIUM"
+        text="" />
+    <label id="TimerRightValueLabel"
+        x="20%" y="14%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_LEFT"
+        font="Graphics.FONT_NUMBER_MEDIUM"
+        text="@Strings.TimerPlaceholder" />
+    <label id="LastDiveTimeTitleLabel"
+        x="25%" y="43%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+        font="Graphics.FONT_TINY"
+        text="@Strings.LastDiveTimeTitle" />
+    <label id="LastDiveTimeValueLabel"
+        x="25%" y="54%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+        font="Graphics.FONT_NUMBER_MEDIUM"
+        text="@Strings.LastDiveTimePlaceholder" />
+    <label id="LastDiveDepthTitleLabel"
+        x="75%" y="43%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+        font="Graphics.FONT_TINY"
+        text="@Strings.LastDiveDepthTitle" />
+    <label id="LastDiveDepthValueLabel"
+        x="75%" y="54%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+        font="Graphics.FONT_NUMBER_MEDIUM"
+        text="@Strings.LastDiveDepthPlaceholder" />
+    <label id="DiveCountValueLabel"
+        x="center" y="82%" color="Graphics.COLOR_WHITE"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+        font="Graphics.FONT_MEDIUM"
+        text="@Strings.DiveCountPlaceholder" />
+</layout>

@@ -1,8 +1,9 @@
-class DiveView extends BaseView {
+class RestView extends BaseView {
     hidden var mTimerTitleLabel;
     hidden var mTimerLeftValueLabel;
     hidden var mTimerRightValueLabel;
-    hidden var mDepthValueLabel;
+    hidden var mLastDiveTimeValueLabel;
+    hidden var mLastDiveDepthValueLabel;
     hidden var mDiveCountValueLabel;
     hidden var mTempValueLabel;
 
@@ -12,18 +13,21 @@ class DiveView extends BaseView {
 
     // Load your resources here
     function onLayout(dc) {
-        setLayout(Rez.Layouts.DiveLayout(dc));
+        setLayout(Rez.Layouts.RestLayout(dc));
 
         mTempValueLabel = View.findDrawableById("TempValueLabel");
         mTimerTitleLabel = View.findDrawableById("TimerTitleLabel");
         mTimerLeftValueLabel = View.findDrawableById("TimerLeftValueLabel");
         mTimerRightValueLabel = View.findDrawableById("TimerRightValueLabel");
-        mDepthValueLabel = View.findDrawableById("DepthValueLabel");
+        mLastDiveTimeValueLabel = View.findDrawableById("LastDiveTimeValueLabel");
+        mLastDiveDepthValueLabel = View.findDrawableById("LastDiveDepthValueLabel");
         mDiveCountValueLabel = View.findDrawableById("DiveCountValueLabel");
     }
 
     // Update the view
     function onUpdate(dc) {
+        // System.println("RestView.onUpdate() called");
+
         // Update fields if running
         if (mController.isRunning()) {
             // Update timer title
@@ -55,10 +59,17 @@ class DiveView extends BaseView {
             mTimerLeftValueLabel.setText(timerLeftValueString);
             mTimerRightValueLabel.setText(timerRightValueString);
 
-            // Update depth
-            var depth = mController.getDepth();
-            var depthValueString = depth.format("%.1f");
-            mDepthValueLabel.setText(depthValueString);
+            // Update last dive time
+            var lastDiveTime = mController.getLastDiveTime() / 1000;
+            var lastDiveTimeMinutes = lastDiveTime / 60;
+            var lastDiveTimeSeconds = lastDiveTime % 60;
+            var lastDiveTimeValueString = Lang.format("$1$:$2$", [lastDiveTimeMinutes.format("%d"), lastDiveTimeSeconds.format("%02d")]);
+            mLastDiveTimeValueLabel.setText(lastDiveTimeValueString);
+
+            // Update last dive depth
+            var lastDiveDepth = mController.getLastDiveDepth();
+            var lastDiveDepthValueString = lastDiveDepth.format("%.1f");
+            mLastDiveDepthValueLabel.setText(lastDiveDepthValueString);
 
             // Update dive count
             var diveCount = mController.getSessionDiveCount();

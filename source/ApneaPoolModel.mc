@@ -32,6 +32,8 @@ class ApneaPoolModel
     hidden var mLapStartTime;
     hidden var mLapType;
     hidden var mLapMaxDepth;
+    hidden var mLastDiveTime;
+    hidden var mLastDiveDepth;
     hidden var mSessionDiveCount;
 
     hidden var mAbsolutePressureField;
@@ -40,6 +42,10 @@ class ApneaPoolModel
     hidden var mLapTypeField;
     hidden var mLapMaxDepthField;
     hidden var mSessionDiveCountField;
+
+    hidden var mOnLapCallback;
+
+    hidden var mTestDepth;
 
     function initialize() {
         // Create session
@@ -64,6 +70,8 @@ class ApneaPoolModel
         mLapStartTime = 0;
         mLapType = LAP_TYPE_REST;
         mLapMaxDepth = 0;
+        mLastDiveTime = 0;
+        mLastDiveDepth = 0;
         mSessionDiveCount = 0;
 
         // Capture data
@@ -143,9 +151,35 @@ class ApneaPoolModel
         return mLapMaxDepth;
     }
 
+    // Return the lap max depth
+    function getLastDiveTime() {
+        return mLastDiveTime;
+    }
+
+    // Return the lap max depth
+    function getLastDiveDepth() {
+        return mLastDiveDepth;
+    }
+
     // Return the session dive count
     function getSessionDiveCount() {
         return mSessionDiveCount;
+    }
+
+    // Set or clear the on lap callback
+    function setOnLapCallback(fn) {
+        mOnLapCallback = fn;
+    }
+
+    // Get test depth
+    function getTestDepth() {
+        return mTestDepth;
+    }
+
+    // Set test depth
+    function setTestDepth(depth) {
+        // System.println("setTestDepth called with: " + depth);
+        mTestDepth = depth;
     }
 
     // Capture data
@@ -191,39 +225,51 @@ class ApneaPoolModel
         // System.println("Absolute Pressure: " + mAbsolutePressure);
 
         // Calculate depth
-        // h = P/pg where P is pressure, p (rho) is density, g is gravity, h is depth
-        // https://en.wikipedia.org/wiki/Pressure#Liquid_pressure
-        var pressure = mAbsolutePressure - mAbsolutePressureMin;
-        var depth = pressure / (WATER_DENSITY * GRAVITY);
+        if (mTestDepth == null) {
+            // h = P/pg where P is pressure, p (rho) is density, g is gravity, h is depth
+            // https://en.wikipedia.org/wiki/Pressure#Liquid_pressure
+            var pressure = mAbsolutePressure - mAbsolutePressureMin;
+            var depth = pressure / (WATER_DENSITY * GRAVITY);
 
-        mDepth = depth.format("%.3f").toFloat();
-        mDepthField.setData(mDepth);
+            mDepth = depth.format("%.3f").toFloat();
+            mDepthField.setData(mDepth);
+        } else {
+            // System.println("Using test depth: " + mTestDepth);
+            mDepth = mTestDepth;
+        }
 
         // Handle lap
+        var invokeOnLapCallback = false;
         if (mLapType == LAP_TYPE_REST) {
             // Start dive if depth threshold crossed
-            if (depth > DIVE_START_DEPTH) {
+            if (mDepth > DIVE_START_DEPTH) {
                 mSession.addLap();
+                invokeOnLapCallback = true;
                 mLapStartTime = mElapsedTime;
                 mLapType = LAP_TYPE_DIVE;
                 mLapMaxDepth = 0;
             }
         } else if (mLapType == LAP_TYPE_DIVE) {
             // Start rest if depth threshold crossed
-            if (depth < REST_START_DEPTH) {
+            if (mDepth < REST_START_DEPTH) {
                 var time = getLapTime();
                 mSession.addLap();
+                invokeOnLapCallback = true;
                 mLapStartTime = mElapsedTime;
                 mLapType = LAP_TYPE_REST;
-                mLapMaxDepth = 0;
 
                 // Count dive only if exceeds min time
                 if (time >= DIVE_MIN_TIME) {
                     mSessionDiveCount++;
+                    mLastDiveTime = time;
+                    mLastDiveDepth = mLapMaxDepth;
+                    mLapMaxDepth = 0;
+                } else {
+                    mLapMaxDepth = 0;
                 }
-            } else if (depth > mLapMaxDepth) {
+            } else if (mDepth > mLapMaxDepth) {
                 // Keep track of max depth
-                mLapMaxDepth = depth;
+                mLapMaxDepth = mDepth;
             }
         } else {
         }
@@ -242,6 +288,11 @@ class ApneaPoolModel
 
         // Set session fields
         mSessionDiveCountField.setData(mSessionDiveCount);
+
+        // Invoke on lap callback
+        if (invokeOnLapCallback && mOnLapCallback != null) {
+            mOnLapCallback.invoke(mLapType);
+        }
     }
 
     // Handle timer callback
