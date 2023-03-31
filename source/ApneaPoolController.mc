@@ -31,6 +31,10 @@ class ApneaPoolController
 
         // Give the system some time to finish the recording. Push up a progress bar
         // and start a timer to allow all processing to finish
+
+        // NOTE: ProgressBar does not respect onBack override, so we need to push
+        // a dummy view under the progress bar to prevent user from going back
+        WatchUi.switchToView(new ExitView(), new ExitDelegate(), WatchUi.SLIDE_IMMEDIATE);
         WatchUi.pushView(new WatchUi.ProgressBar("Saving...", null), new ProgressDelegate(), WatchUi.SLIDE_DOWN);
         mTimer = new Timer.Timer();
         mTimer.start(method(:onExit), 3000, false);
@@ -41,6 +45,10 @@ class ApneaPoolController
 
         // Give the system some time to discard the recording. Push up a progress bar
         // and start a timer to allow all processing to finish
+
+        // NOTE: ProgressBar does not respect onBack override, so we need to push
+        // a dummy view under the progress bar to prevent user from going back
+        WatchUi.switchToView(new ExitView(), new ExitDelegate(), WatchUi.SLIDE_IMMEDIATE);
         WatchUi.pushView(new WatchUi.ProgressBar("Discarding...", null), new ProgressDelegate(), WatchUi.SLIDE_DOWN);
         mTimer = new Timer.Timer();
         mTimer.start(method(:onExit), 3000, false);

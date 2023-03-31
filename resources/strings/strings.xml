@@ -1,6 +1,8 @@
 <strings>
     <string id="AppName">Apnea Pool</string>
 
+    <string id="SessionEndedMessage">Session Ended</string>
+
     <string id="TimerTitle">TIMER</string>
     <string id="RestTimeTitle">REST T.</string>
     <string id="DiveTimeTitle">DIVE T.</string>
