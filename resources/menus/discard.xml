@@ -1,0 +1,4 @@
+<menu2 id="DiscardMenu" title="@Strings.DiscardMenuTitle">
+    <menu-item id="No" label="@Strings.NoMenuItemText" />
+    <menu-item id="Yes" label="@Strings.YesMenuItemText" />
+</menu2>

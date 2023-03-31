@@ -41,6 +41,10 @@ class ApneaPoolController
     }
 
     function discard() {
+        WatchUi.pushView(new Rez.Menus.DiscardMenu(), new DiscardMenuDelegate(), WatchUi.SLIDE_LEFT);
+    }
+
+    function discardConfirm() {
         mModel.discard();
 
         // Give the system some time to discard the recording. Push up a progress bar

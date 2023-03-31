@@ -9,12 +9,12 @@ class ExitDelegate extends WatchUi.BehaviorDelegate {
         BehaviorDelegate.initialize();
     }
 
-    // Handle start stop button
+    // Block start stop button
     function onSelect() {
         return true;
     }
 
-    // Handle back button
+    // Block back button
     function onBack() {
         return true;
     }
@@ -24,12 +24,12 @@ class ExitDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    // Handle the next page button
+    // Block the next page button
     function onNextPage() as Boolean {
         return true;
     }
 
-    // Handle the previous page button
+    // Block the previous page button
     function onPreviousPage() as Boolean {
         return true;
     }
