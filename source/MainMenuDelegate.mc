@@ -33,6 +33,12 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     // Handle menu back
     function onBack() {
+        // // NOTE: uncomment for testing laps
+        // if (true) {
+        //     toggleTestDepth();
+        //     return;
+        // }
+
         // System.println("On menu back");
         mController.start();
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
