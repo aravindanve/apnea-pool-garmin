@@ -4,4 +4,20 @@ class DiveDelegate extends BaseDelegate {
         BaseDelegate.initialize(0);
     }
 
+    // Block start stop button
+    function onSelect() {
+        return true;
+    }
+
+    // Block back button
+    function onBack() {
+        // // NOTE: uncomment for testing laps
+        // if (true) {
+        //     toggleTestDepth();
+        //     return true;
+        // }
+
+        return true;
+    }
+
 }
